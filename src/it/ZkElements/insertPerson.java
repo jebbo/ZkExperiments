@@ -29,8 +29,6 @@ public class insertPerson extends GenericForwardComposer
 	public void doAfterCompose(Component comp) throws Exception 
 	{
 		super.doAfterCompose(comp);
-		
-		
 	}
 	
 	public void onClick$insert () throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
