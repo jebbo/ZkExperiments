@@ -1,0 +1,68 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="new page title" border="normal" apply="it.ZkElements.insertPerson">
+	<grid fixedLayout="true">
+        <columns>
+            <column label="Type" width="150px" />
+            <column label="Content" />
+        </columns>
+        <rows>
+            <row>
+                <label  value="name" width="150px" />
+                <hlayout>
+                    <textbox id="name" width="150px" tabbable="true" />
+                </hlayout>
+            </row>
+            <row>
+                <label  value="surname" width="150px" />
+                <hlayout>
+                    <textbox id="surname" width="150px" tabbable="true" />
+                </hlayout>
+            </row>
+            <row>
+                Phone:
+                <textbox id="phone" width="150px" maxlength="15"
+					constraint="/^[0-9]+$/: Please insert only number" />
+            </row>
+            <row>
+                Height:
+                <decimalbox id="height" format="###.##" width="150px" />
+            </row>
+            <row>
+                Birthday:
+                <datebox id="birthday" format="dd/MM/yyyy" width="150px" />
+            </row>
+            <row>
+                E-mail:
+                <textbox id="email" width="150px"
+                    constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address" />                  
+            </row>
+            <row>
+                Memo:
+                <vlayout>
+                    <div style="width:375px;text-align:right;padding:0;">
+                        Adjust Height:
+                        <spinner value="6" constraint="no negative,no zero">
+                            <attribute name="onChanging"><![CDATA[
+                                if (event.value.length() > 0 && Integer.parseInt(event.value) > 0)
+                                    intro.rows = Integer.parseInt(event.value);
+                                 
+                            ]]></attribute>
+                        </spinner>
+                    </div>
+                    <textbox id="note" rows="6" width="370px;">
+                        <attribute name="value"></attribute>
+                    </textbox>
+                </vlayout>
+            </row>
+            
+            <row>
+                <cell colspan="3" style="text-align:center">
+                    <button id="insert" label="Submit" width="100px" height="30px">                  
+                    </button>
+                </cell>
+            </row>
+        </rows>
+    </grid>
+  </window>
+</zk>
