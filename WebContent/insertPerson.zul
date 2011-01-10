@@ -7,12 +7,6 @@
             <column label="Content" />
         </columns>
         <rows>
-        	<row>
-                <label  value="Category" width="150px" />
-                <hlayout>
-                    <textbox id="category" width="150px" tabbable="true" />
-                </hlayout>
-            </row>
             <row>
                 <label  value="Name" width="150px" />
                 <hlayout>
