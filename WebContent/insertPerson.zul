@@ -7,14 +7,20 @@
             <column label="Content" />
         </columns>
         <rows>
+        	<row>
+                <label  value="Category" width="150px" />
+                <hlayout>
+                    <textbox id="category" width="150px" tabbable="true" />
+                </hlayout>
+            </row>
             <row>
-                <label  value="name" width="150px" />
+                <label  value="Name" width="150px" />
                 <hlayout>
                     <textbox id="name" width="150px" tabbable="true" />
                 </hlayout>
             </row>
             <row>
-                <label  value="surname" width="150px" />
+                <label  value="Surname" width="150px" />
                 <hlayout>
                     <textbox id="surname" width="150px" tabbable="true" />
                 </hlayout>
