@@ -1,12 +1,25 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="Insert Person" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Inserisci persona" border="normal" apply="it.ZkElements.insertPerson">
+<window title="Insert Person" border="normal" apply="it.ZkElements.insertPerson">
 	<grid fixedLayout="true">
         <columns>
             <column label="Type" width="150px" />
             <column label="Content" />
         </columns>
         <rows>
+        	<row>
+        		<label  value="Name" width="150px" />
+                <hlayout>
+		        	 <zscript>
+					    String[] data = new String[30];
+					    for(int j=0; j &lt; data.length; ++j) {
+					      data[j] = "option "+j;
+					    }
+					    ListModel strset = new SimpleListModel(data);
+					  </zscript>
+					  <combobox id="list" width="200px" model="&#36;{strset}"/> 
+				</hlayout>
+            </row>
             <row>
                 <label  value="Name" width="150px" />
                 <hlayout>
@@ -26,7 +39,8 @@
             </row>
             <row>
                 Height:
-                <decimalbox id="height" format="###.##" width="150px" />
+                <decimalbox id="height" format="###" width="150px" 
+                	constraint="/[0-9]+[0-9]+[0-9]/: Please insert only 3 numbers" />
             </row>
             <row>
                 Birthday:

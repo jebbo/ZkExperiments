@@ -1,0 +1,44 @@
+<?page title="Insert Category" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Insert Category" border="normal" apply="it.ZkElements.insertCategory">
+	<grid fixedLayout="true">
+        <columns>
+            <column label="Type" width="150px" />
+            <column label="Content" />
+        </columns>
+        <rows>
+        	<row>
+                <label  value="Name" width="150px" />
+                <hlayout>
+                    <textbox id="name" width="150px" tabbable="true" />
+                </hlayout>
+            </row>
+            <row>
+                Description:
+                <vlayout>
+                    <div style="width:375px;text-align:right;padding:0;">
+                        Adjust Height:
+                        <spinner value="6" constraint="no negative,no zero">
+                            <attribute name="onChanging"><![CDATA[
+                                if (event.value.length() > 0 && Integer.parseInt(event.value) > 0)
+                                    description.rows = Integer.parseInt(event.value);
+                                 
+                            ]]></attribute>
+                        </spinner>
+                    </div>
+                    <textbox id="description" rows="6" width="370px;">
+                        <attribute name="value"></attribute>
+                    </textbox>
+                </vlayout>
+            </row>
+            
+            <row>
+                <cell colspan="3" style="text-align:center">
+                    <button id="insert" label="Submit" width="100px" height="30px">                  
+                    </button>
+                </cell>
+            </row>
+        </rows>
+    </grid>
+  </window>
+</zk>
