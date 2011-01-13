@@ -2,6 +2,7 @@ package it.ZkElements;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -34,12 +35,21 @@ public class insertCategory extends GenericForwardComposer
                                    "user=root&password=");
 		
 		Statement y = conn.createStatement();
-		String sql = "INSERT category VALUES(" +
+		
+		PreparedStatement yy = conn.prepareStatement("INSERT INTO category(name,description) VALUES(?,?)");
+		yy.setString(1,name.getValue());
+		yy.setString(2,description.getValue());
+		
+		yy.execute();
+		
+		/*String sql = "INSERT category VALUES(" +
 		"'0','" + name.getValue() 				+ "','" + description.getValue() 	+ "')";
 		y.executeUpdate(sql);
 		
-		System.out.println(sql);
+		System.out.println(sql);*/
 		
 		conn.close();
+		
+		alert("Category saved!");
 	}
 }

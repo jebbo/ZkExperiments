@@ -2,6 +2,7 @@ package it.ZkElements;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -71,6 +72,11 @@ public class insertPerson extends GenericForwardComposer
 	}
 	
 	public void onClick$insert () throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		long dataBir = 0;
+		
+		if (birthday.getValue()!=null)
+			dataBir = birthday.getValue().getTime();
+		
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		
 		Connection conn = DriverManager
@@ -79,14 +85,31 @@ public class insertPerson extends GenericForwardComposer
 		
 		Statement y = conn.createStatement();
 		
-		String sql = "INSERT person VALUES(" +
+		PreparedStatement yy = conn.prepareStatement("INSERT INTO person(name,surname,phone,birthday,email,note) VALUES(?,?,?,?,?,?)");
+		yy.setString(1,name.getValue());
+		yy.setString(2,surname.getValue());
+		yy.setString(3,phone.getValue());
+		yy.setLong	(4,dataBir);
+		yy.setString(5,email.getValue());
+		yy.setString(6,note.getValue());
+		
+		yy.execute();
+//		
+//		Metodo.inseriscipersona(string nome, string cognome)
+		
+		
+		/*String sql = "INSERT person VALUES(" +
 		"'0','" + name.getValue() 				+ "','" + surname.getValue() 	+ "'," +
 	 		"'" + phone.getValue() 				+ "','" + height.getValue() 	+ "'," +
 	 		"'" + birthday.getValue().getTime() + "','"+ email.getValue() 		+ "'," +
 	 		"'" + note.getValue() 				+ "')";
 		y.executeUpdate(sql);
 		
-		System.out.println(sql);
+		System.out.println(sql);*/
+		
+		conn.close();
+		
+		alert("Person saved!");
 		
 	}
 }

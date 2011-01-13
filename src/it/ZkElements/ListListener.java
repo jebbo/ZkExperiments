@@ -22,6 +22,8 @@ class ListListener implements EventListener
 	@Override
 	public void onEvent(Event event) throws Exception 
 	{
+		if (!r.isVisible())
+			r.setVisible(true);
 		r.getItems().add(temp);
 		l.getItems().remove(temp);
 	}

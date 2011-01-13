@@ -11,7 +11,7 @@
         		<label  value="Category" width="150px" />
                 <hlayout>
 		        	<listbox id = "l" width="150px"/>
-					<listbox id = "r" width="150px"/> 
+					<listbox id = "r" width="150px" visible="false"/> 
 				</hlayout>
             </row>
             <row>
@@ -28,13 +28,8 @@
             </row>
             <row>
                 Phone:
-                <textbox id="phone" width="150px" maxlength="15"
-					constraint="/^[0-9]+$/: Please insert only number" />
-            </row>
-            <row>
-                Height:
-                <decimalbox id="height" format="###" width="150px" 
-                	constraint="/[0-9]+[0-9]+[0-9]/: Please insert only 3 numbers" />
+                <textbox id="phone" width="150px" maxlength="15" />
+					<!-- constraint="/^[0-9]+$/: Please insert only number" --> 
             </row>
             <row>
                 Birthday:
@@ -42,8 +37,8 @@
             </row>
             <row>
                 E-mail:
-                <textbox id="email" width="150px"
-                    constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address" />                  
+                <textbox id="email" width="150px" /> 
+                    <!-- constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address"   -->                
             </row>
             <row>
                 Memo:
