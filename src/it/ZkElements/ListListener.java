@@ -10,6 +10,7 @@ class ListListener implements EventListener
 	private Listbox l;
 	private Listbox r;
 	private Listitem temp;
+	private Listitem newListItem;
 	
 	public ListListener (Listbox l, 
 			Listbox r, Listitem temp)
@@ -24,7 +25,12 @@ class ListListener implements EventListener
 	{
 		if (!r.isVisible())
 			r.setVisible(true);
-		r.getItems().add(temp);
+		
+		newListItem = new Listitem(temp.getLabel());
+		newListItem.addEventListener("onClick", new ListListener(r,l,newListItem)); 
+		//newListItem.setId("r" + rs.getString(1));
+		
+		r.getItems().add(newListItem);
 		l.getItems().remove(temp);
 	}
 }

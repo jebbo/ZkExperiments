@@ -40,6 +40,7 @@ public class insertPerson extends GenericForwardComposer
 	public void doAfterCompose(Component comp) throws Exception 
 	{
 		HashMap catItem = new HashMap();
+		Listitem temp;
 		
 		super.doAfterCompose(comp);
 		
@@ -54,7 +55,9 @@ public class insertPerson extends GenericForwardComposer
 		
 		while(rs.next())
 		{
-			l.getItems().add(new Listitem(rs.getString(2)));	
+			temp = new Listitem(rs.getString(2));
+			temp.setId("l" + rs.getString(1));
+			l.getItems().add(temp);	
 		}
 		
 		List ll = l.getItems();
@@ -63,7 +66,7 @@ public class insertPerson extends GenericForwardComposer
 		
 		while(i.hasNext())
 		{
-			Listitem temp = (Listitem)i.next();
+			temp = (Listitem)i.next();
 			
 			temp.addEventListener("onClick", new ListListener(l,r,temp)); 
 		}
