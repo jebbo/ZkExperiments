@@ -39,7 +39,6 @@ public class insertPerson extends GenericForwardComposer
 	@Override
 	public void doAfterCompose(Component comp) throws Exception 
 	{
-		HashMap catItem = new HashMap();
 		Listitem temp;
 		
 		super.doAfterCompose(comp);
@@ -56,7 +55,7 @@ public class insertPerson extends GenericForwardComposer
 		while(rs.next())
 		{
 			temp = new Listitem(rs.getString(2));
-			temp.setId("l" + rs.getString(1));
+			temp.setId("l"+rs.getString(1));
 			l.getItems().add(temp);	
 		}
 		
@@ -67,8 +66,8 @@ public class insertPerson extends GenericForwardComposer
 		while(i.hasNext())
 		{
 			temp = (Listitem)i.next();
-			
-			temp.addEventListener("onClick", new ListListener(l,r,temp)); 
+			System.out.println(temp.getId());
+			temp.addEventListener("onClick", new ListListener(l,r,temp,"l")); 
 		}
 		
 		conn.close();
@@ -76,6 +75,7 @@ public class insertPerson extends GenericForwardComposer
 	
 	public void onClick$insert () throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		long dataBir = 0;
+		String personID="";
 		
 		if (birthday.getValue()!=null)
 			dataBir = birthday.getValue().getTime();
@@ -86,9 +86,8 @@ public class insertPerson extends GenericForwardComposer
 				.getConnection("jdbc:mysql://localhost/test?" +
                                    "user=root&password=");
 		
-		Statement y = conn.createStatement();
-		
-		PreparedStatement yy = conn.prepareStatement("INSERT INTO person(name,surname,phone,birthday,email,note) VALUES(?,?,?,?,?,?)");
+		PreparedStatement yy = conn.prepareStatement("INSERT INTO person(name,surname,phone,birthday,email,note) VALUES(?,?,?,?,?,?)",
+				Statement.RETURN_GENERATED_KEYS);
 		yy.setString(1,name.getValue());
 		yy.setString(2,surname.getValue());
 		yy.setString(3,phone.getValue());
@@ -96,20 +95,20 @@ public class insertPerson extends GenericForwardComposer
 		yy.setString(5,email.getValue());
 		yy.setString(6,note.getValue());
 		
+		ResultSet res = yy.getGeneratedKeys();
+		personID = res.getString(1);
+		
+		System.out.println("PERSONID="+personID);
+		
+		/*yy = conn.prepareStatement("INSERT INTO person_category VALUES(?,?)");
+		yy.setString(1,name.getValue());
+		yy.setString(2,surname.getValue());*/
+		
 		yy.execute();
-//		
+		
 //		Metodo.inseriscipersona(string nome, string cognome)
 		
-		
-		/*String sql = "INSERT person VALUES(" +
-		"'0','" + name.getValue() 				+ "','" + surname.getValue() 	+ "'," +
-	 		"'" + phone.getValue() 				+ "','" + height.getValue() 	+ "'," +
-	 		"'" + birthday.getValue().getTime() + "','"+ email.getValue() 		+ "'," +
-	 		"'" + note.getValue() 				+ "')";
-		y.executeUpdate(sql);
-		
-		System.out.println(sql);*/
-		
+		yy.close();
 		conn.close();
 		
 		alert("Person saved!");

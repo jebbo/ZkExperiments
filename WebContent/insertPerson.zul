@@ -10,8 +10,16 @@
         	<row>
         		<label  value="Category" width="150px" />
                 <hlayout>
-		        	<listbox id = "l" width="150px"/>
-					<listbox id = "r" width="150px" visible="false"/> 
+		        	<listbox id = "l" width="150px" rows="4">
+		        		<listhead>
+				            <listheader label="Category to insert" sort="auto"/>
+				        </listhead>
+		        	</listbox>
+					<listbox id = "r" width="150px" rows="4" visible="false">
+						<listhead>
+				            <listheader label="Category included" sort="auto"/>
+				        </listhead>
+		        	</listbox>
 				</hlayout>
             </row>
             <row>

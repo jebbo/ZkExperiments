@@ -34,8 +34,6 @@ public class insertCategory extends GenericForwardComposer
 				.getConnection("jdbc:mysql://localhost/test?" +
                                    "user=root&password=");
 		
-		Statement y = conn.createStatement();
-		
 		PreparedStatement yy = conn.prepareStatement("INSERT INTO category(name,description) VALUES(?,?)");
 		yy.setString(1,name.getValue());
 		yy.setString(2,description.getValue());

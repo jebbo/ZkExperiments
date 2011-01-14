@@ -11,26 +11,39 @@ class ListListener implements EventListener
 	private Listbox r;
 	private Listitem temp;
 	private Listitem newListItem;
+	private String listaCambio;
 	
 	public ListListener (Listbox l, 
-			Listbox r, Listitem temp)
+			Listbox r, Listitem temp, String listaCambio)
 	{
 		this.l = l;
 		this.r = r;
 		this.temp = temp;
+		this.listaCambio = listaCambio;
 	}
 	
 	@Override
 	public void onEvent(Event event) throws Exception 
 	{
+		String tmp;
 		if (!r.isVisible())
 			r.setVisible(true);
+		System.out.println();
 		
+		if (listaCambio == "r")
+			listaCambio = "l";
+		else
+			listaCambio = "r";
+		
+		tmp = temp.getId().substring(1);
 		newListItem = new Listitem(temp.getLabel());
-		newListItem.addEventListener("onClick", new ListListener(r,l,newListItem)); 
-		//newListItem.setId("r" + rs.getString(1));
+		newListItem.setId(listaCambio+tmp);
+		newListItem.addEventListener("onClick", new ListListener(r,l,newListItem,listaCambio)); 
 		
 		r.getItems().add(newListItem);
+		
 		l.getItems().remove(temp);
+		if(l.getItems().size() == 0)
+			l.setVisible(false);
 	}
 }
