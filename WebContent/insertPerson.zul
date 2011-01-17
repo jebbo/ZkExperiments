@@ -12,12 +12,12 @@
                 <hlayout>
 		        	<listbox id = "l" width="150px" rows="4">
 		        		<listhead>
-				            <listheader id="lH" label="Category to insert"/>
+				            <listheader id="lH" label="Category to insert" sort="auto"/>
 				        </listhead>
 		        	</listbox>
 					<listbox id = "r" width="150px" rows="4" visible="false" >
 						<listhead>
-				            <listheader id="rH" label="Category included"/>
+				            <listheader id="rH" label="Category included" sort="auto"/>
 				        </listhead>
 		        	</listbox>
 				</hlayout>
@@ -25,13 +25,13 @@
             <row>
                 <label  value="Name" width="150px" />
                 <hlayout>
-                    <textbox id="name" width="150px" tabbable="true" />
+                    <textbox id="name" width="150px" />
                 </hlayout>
             </row>
             <row>
                 <label  value="Surname" width="150px" />
                 <hlayout>
-                    <textbox id="surname" width="150px" tabbable="true" />
+                    <textbox id="surname" width="150px" />
                 </hlayout>
             </row>
             <row>
@@ -56,8 +56,7 @@
                         <spinner value="6" constraint="no negative,no zero">
                             <attribute name="onChanging"><![CDATA[
                                 if (event.value.length() > 0 && Integer.parseInt(event.value) > 0)
-                                    note.rows = Integer.parseInt(event.value);
-                                 
+                                    note.rows = Integer.parseInt(event.value);    
                             ]]></attribute>
                         </spinner>
                     </div>

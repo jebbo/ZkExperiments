@@ -46,8 +46,8 @@ class ListListener implements EventListener
 		newListItem.addEventListener("onClick", new ListListener(r,l,newListItem,listaCambio,lH,rH)); 
 		
 		r.getItems().add(newListItem);
-		rH.sort(true,true);
-		lH.sort(true, true);
+		lH.sort(true,true);
+		rH.sort(true,true);		
 		
 		l.getItems().remove(temp);
 		if(l.getItems().size() == 0)

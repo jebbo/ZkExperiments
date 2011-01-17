@@ -1,7 +1,5 @@
 package it.ZkElements;
 
-import it.ZkExperiments.util.MyListItem;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -70,7 +68,6 @@ public class insertPerson extends GenericForwardComposer
 		while(i.hasNext())
 		{
 			temp = (Listitem)i.next();
-			System.out.println(temp.getId());
 			temp.addEventListener("onClick", new ListListener(l,r,temp,"l",lH,rH)); 
 		}
 		
@@ -80,7 +77,9 @@ public class insertPerson extends GenericForwardComposer
 	
 	public void onClick$insert () throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		long dataBir = 0;
-		String personID="";
+		int personID = 0;
+		String categoryID;
+		Listitem temp;
 		
 		if (birthday.getValue()!=null)
 			dataBir = birthday.getValue().getTime();
@@ -91,29 +90,43 @@ public class insertPerson extends GenericForwardComposer
 				.getConnection("jdbc:mysql://localhost/test?" +
                                    "user=root&password=");
 		
-		PreparedStatement yy = conn.prepareStatement("INSERT INTO person(name,surname,phone,birthday,email,note) VALUES(?,?,?,?,?,?)",
-				Statement.RETURN_GENERATED_KEYS);
-		yy.setString(1,name.getValue());
-		yy.setString(2,surname.getValue());
-		yy.setString(3,phone.getValue());
-		yy.setLong	(4,dataBir);
-		yy.setString(5,email.getValue());
-		yy.setString(6,note.getValue());
+		PreparedStatement stmt = conn.prepareStatement("INSERT INTO person(name,surname,phone,birthday,email,note) VALUES(?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+		stmt.setString(1,name.getValue());
+		stmt.setString(2,surname.getValue());
+		stmt.setString(3,phone.getValue());
+		stmt.setLong  (4,dataBir);
+		stmt.setString(5,email.getValue());
+		stmt.setString(6,note.getValue());
 		
-		ResultSet res = yy.getGeneratedKeys();
-		personID = res.getString(1);
+		int num = stmt.executeUpdate();
+		if (num == 1) {
+			ResultSet rs = stmt.getGeneratedKeys();
+			if(rs!=null){
+				while(rs.next()){
+					personID = rs.getInt(1);
+				}
+			}
+			rs.close();
+		}
+
+		stmt.close();
 		
-		System.out.println("PERSONID="+personID);
+		List rr = r.getItems();
 		
-		/*yy = conn.prepareStatement("INSERT INTO person_category VALUES(?,?)");
-		yy.setString(1,name.getValue());
-		yy.setString(2,surname.getValue());*/
+		Iterator i = rr.iterator();
 		
-		yy.execute();
+		while(i.hasNext())
+		{
+			temp = (Listitem)i.next();
+			categoryID = temp.getId().substring(1);
+			stmt = conn.prepareStatement("INSERT INTO person_category(personID,categoryID) VALUES(?,?)");
+			stmt.setInt(1,personID);
+			stmt.setString(2,categoryID);
+			
+			stmt.executeUpdate();
+			stmt.close();
+		}
 		
-//		Metodo.inseriscipersona(string nome, string cognome)
-		
-		yy.close();
 		conn.close();
 		
 		alert("Person saved!");
