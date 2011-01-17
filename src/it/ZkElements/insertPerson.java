@@ -17,6 +17,7 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
 
@@ -36,6 +37,8 @@ public class insertPerson extends GenericForwardComposer
 	Textbox note;
 	Listbox r;
 	Listbox l;
+	Listheader lH;
+	Listheader rH;
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception 
@@ -68,7 +71,7 @@ public class insertPerson extends GenericForwardComposer
 		{
 			temp = (Listitem)i.next();
 			System.out.println(temp.getId());
-			temp.addEventListener("onClick", new ListListener(l,r,temp,"l")); 
+			temp.addEventListener("onClick", new ListListener(l,r,temp,"l",lH,rH)); 
 		}
 		
 		y.close();

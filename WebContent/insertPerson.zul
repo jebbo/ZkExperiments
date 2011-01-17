@@ -12,12 +12,12 @@
                 <hlayout>
 		        	<listbox id = "l" width="150px" rows="4">
 		        		<listhead>
-				            <listheader label="Category to insert" sort="auto"/>
+				            <listheader id="lH" label="Category to insert"/>
 				        </listhead>
 		        	</listbox>
 					<listbox id = "r" width="150px" rows="4" visible="false" >
 						<listhead>
-				            <listheader label="Category included" sort="auto"/>
+				            <listheader id="rH" label="Category included"/>
 				        </listhead>
 		        	</listbox>
 				</hlayout>

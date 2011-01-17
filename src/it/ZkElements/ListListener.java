@@ -10,7 +10,10 @@ import java.util.List;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.ListModel;
+import org.zkoss.zul.ListModelExt;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listhead;
+import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.SimpleListModel;
 
@@ -21,14 +24,18 @@ class ListListener implements EventListener
 	private Listitem temp;
 	private Listitem newListItem;
 	private String listaCambio;
+	private Listheader lH;
+	private Listheader rH;
 	
 	public ListListener (Listbox l, 
-			Listbox r, Listitem temp, String listaCambio)
+			Listbox r, Listitem temp, String listaCambio, Listheader lH, Listheader rH)
 	{
 		this.l = l;
 		this.r = r;
 		this.temp = temp;
 		this.listaCambio = listaCambio;
+		this.lH = lH;
+		this.rH = rH;
 	}
 	
 	@Override
@@ -47,26 +54,11 @@ class ListListener implements EventListener
 		tmp = temp.getId().substring(1);
 		newListItem = new Listitem(temp.getLabel());
 		newListItem.setId(listaCambio+tmp);
-		newListItem.addEventListener("onClick", new ListListener(r,l,newListItem,listaCambio)); 
+		newListItem.addEventListener("onClick", new ListListener(r,l,newListItem,listaCambio,lH,rH)); 
 		
-		List rr = r.getItems();
-		
-		Iterator i = rr.iterator();
-		List<Listitem> data = new ArrayList<Listitem>();
-		Listitem itemTemp;
-		while(i.hasNext())
-		{
-			itemTemp = (Listitem) i.next();
-			data.add(itemTemp);
-		}
-		data.add(newListItem);
-		
-		//Collections.sort(data);
-		
-		ListModel strset = new SimpleListModel(data);
-		
-		//r.getItems().add(newListItem);
-		r.setModel(strset);
+		r.getItems().add(newListItem);
+		rH.sort(true,true);
+		lH.sort(true, true);
 		
 		l.getItems().remove(temp);
 		if(l.getItems().size() == 0)
