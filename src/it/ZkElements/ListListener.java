@@ -1,21 +1,10 @@
 package it.ZkElements;
 
-import it.ZkExperiments.util.MyListItem;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zul.ListModel;
-import org.zkoss.zul.ListModelExt;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.SimpleListModel;
 
 class ListListener implements EventListener
 {
