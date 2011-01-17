@@ -15,7 +15,7 @@
 				            <listheader label="Category to insert" sort="auto"/>
 				        </listhead>
 		        	</listbox>
-					<listbox id = "r" width="150px" rows="4" visible="false">
+					<listbox id = "r" width="150px" rows="4" visible="false" >
 						<listhead>
 				            <listheader label="Category included" sort="auto"/>
 				        </listhead>

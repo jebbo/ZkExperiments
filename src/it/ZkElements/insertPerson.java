@@ -1,12 +1,13 @@
 package it.ZkElements;
 
+import it.ZkExperiments.util.MyListItem;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -70,6 +71,7 @@ public class insertPerson extends GenericForwardComposer
 			temp.addEventListener("onClick", new ListListener(l,r,temp,"l")); 
 		}
 		
+		y.close();
 		conn.close();
 	}
 	
