@@ -19,8 +19,12 @@ import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
 
-public class insertPerson extends GenericForwardComposer 
-{
+/**
+ * 
+ * @author jebbo
+ *
+ */
+public class insertPerson extends GenericForwardComposer {
 	/**
 	 * 
 	 */
@@ -33,15 +37,17 @@ public class insertPerson extends GenericForwardComposer
 	Datebox birthday;
 	Textbox email;
 	Textbox note;
-	Listbox r;
-	Listbox l;
-	Listheader lH;
-	Listheader rH;
+	Listbox listbLeft;
+	Listbox listbRigth;
+	Listheader listbLeftHead;
+	Listheader listbRigthtHead;
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception 
 	{
-		Listitem temp;
+		Listitem itemListbox;
+		List listItem;
+		Iterator i;
 		
 		super.doAfterCompose(comp);
 		
@@ -51,35 +57,42 @@ public class insertPerson extends GenericForwardComposer
 				.getConnection("jdbc:mysql://localhost/test?" +
                                    "user=root&password=");
 		
-		Statement y = conn.createStatement();
-		ResultSet rs  = y.executeQuery("SELECT * FROM category ORDER BY name");
+		Statement stmt = conn.createStatement();
+		ResultSet rs  = stmt.executeQuery("SELECT * FROM category ORDER BY name");
 		
-		while(rs.next())
-		{
-			temp = new Listitem(rs.getString(2));
-			temp.setId("l"+rs.getString(1));
-			l.getItems().add(temp);	
+		while (rs.next()) {
+			itemListbox = new Listitem(rs.getString(2));
+			itemListbox.setId("l"+rs.getString(1));
+			listbLeft.getItems().add(itemListbox);	
 		}
 		
-		List ll = l.getItems();
+		listItem = listbLeft.getItems();
 		
-		Iterator i = ll.iterator();
+		i = listItem.iterator();
 		
-		while(i.hasNext())
-		{
-			temp = (Listitem)i.next();
-			temp.addEventListener("onClick", new ListListener(l,r,temp,"l",lH,rH)); 
+		while (i.hasNext()) {
+			itemListbox = (Listitem)i.next();
+			itemListbox.addEventListener("onClick", new ListListener(listbLeft,listbRigth,itemListbox,"l",listbLeftHead,listbRigthtHead)); 
 		}
 		
-		y.close();
+		stmt.close();
 		conn.close();
 	}
 	
-	public void onClick$insert () throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	/**
+	 * 
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public void onClick$insert() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		long dataBir = 0;
 		int personID = 0;
 		String categoryID;
-		Listitem temp;
+		Listitem itemListbox;
+		List listItem;
+		Iterator i;
 		
 		if (birthday.getValue()!=null)
 			dataBir = birthday.getValue().getTime();
@@ -101,24 +114,23 @@ public class insertPerson extends GenericForwardComposer
 		int num = stmt.executeUpdate();
 		if (num == 1) {
 			ResultSet rs = stmt.getGeneratedKeys();
-			if(rs!=null){
-				while(rs.next()){
+			if (rs!=null) {
+				while (rs.next()) {
 					personID = rs.getInt(1);
 				}
 			}
 			rs.close();
 		}
-
+		
 		stmt.close();
 		
-		List rr = r.getItems();
+		listItem = listbRigth.getItems();
 		
-		Iterator i = rr.iterator();
+		i = listItem.iterator();
 		
-		while(i.hasNext())
-		{
-			temp = (Listitem)i.next();
-			categoryID = temp.getId().substring(1);
+		while (i.hasNext()) {
+			itemListbox = (Listitem)i.next();
+			categoryID = itemListbox.getId().substring(1);
 			stmt = conn.prepareStatement("INSERT INTO person_category(personID,categoryID) VALUES(?,?)");
 			stmt.setInt(1,personID);
 			stmt.setString(2,categoryID);

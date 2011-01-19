@@ -6,51 +6,52 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 
-class ListListener implements EventListener
-{
-	private Listbox l;
-	private Listbox r;
-	private Listitem temp;
+/**
+ * 
+ * @author jebbo
+ *
+ */
+public class ListListener implements EventListener {
+	private Listbox listbSource;
+	private Listbox listbDest;
+	private Listitem itemListbox;
 	private Listitem newListItem;
-	private String listaCambio;
-	private Listheader lH;
-	private Listheader rH;
+	private String listChange;
+	private Listheader listbOrigHead;
+	private Listheader listbDestHead;
 	
-	public ListListener (Listbox l, 
-			Listbox r, Listitem temp, String listaCambio, Listheader lH, Listheader rH)
-	{
-		this.l = l;
-		this.r = r;
-		this.temp = temp;
-		this.listaCambio = listaCambio;
-		this.lH = lH;
-		this.rH = rH;
+	public ListListener(Listbox listbSource, Listbox listbDest, Listitem itemListbox, 
+						String listChange, Listheader listbOrigHead, Listheader listbDestHead) {
+		this.listbSource = listbSource;
+		this.listbDest = listbDest;
+		this.itemListbox = itemListbox;
+		this.listChange = listChange;
+		this.listbOrigHead = listbOrigHead;
+		this.listbDestHead = listbDestHead;
 	}
 	
 	@Override
-	public void onEvent(Event event) throws Exception 
-	{
-		String tmp;
-		if (!r.isVisible())
-			r.setVisible(true);
-		System.out.println();
+	public void onEvent(Event event) throws Exception {
+		String extractId;
 		
-		if (listaCambio == "r")
-			listaCambio = "l";
+		if (!listbDest.isVisible())
+			listbDest.setVisible(true);
+		
+		if (listChange == "r")
+			listChange = "l";
 		else
-			listaCambio = "r";
+			listChange = "r";
 		
-		tmp = temp.getId().substring(1);
-		newListItem = new Listitem(temp.getLabel());
-		newListItem.setId(listaCambio+tmp);
-		newListItem.addEventListener("onClick", new ListListener(r,l,newListItem,listaCambio,lH,rH)); 
+		extractId = itemListbox.getId().substring(1);
+		newListItem = new Listitem(itemListbox.getLabel());
+		newListItem.setId(listChange + extractId);
+		newListItem.addEventListener("onClick", new ListListener(listbDest,listbSource,newListItem,listChange,listbOrigHead,listbDestHead)); 
+		listbDest.getItems().add(newListItem);
+		listbOrigHead.sort(true,true);
+		listbDestHead.sort(true,true);		
 		
-		r.getItems().add(newListItem);
-		lH.sort(true,true);
-		rH.sort(true,true);		
-		
-		l.getItems().remove(temp);
-		if(l.getItems().size() == 0)
-			l.setVisible(false);
+		listbSource.getItems().remove(itemListbox);
+		if(listbSource.getItems().size() == 0)
+			listbSource.setVisible(false);
 	}
 }

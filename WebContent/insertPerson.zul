@@ -10,14 +10,14 @@
         	<row>
         		<label  value="Category" width="150px" />
                 <hlayout>
-		        	<listbox id = "l" width="150px" rows="4">
+		        	<listbox id = "listbLeft" width="150px" rows="4">
 		        		<listhead>
-				            <listheader id="lH" label="Category to insert" sort="auto"/>
+				            <listheader id="listbLeftHead" label="Category to insert" sort="auto"/>
 				        </listhead>
 		        	</listbox>
-					<listbox id = "r" width="150px" rows="4" visible="false" >
+					<listbox id = "listbRigth" width="150px" rows="4" visible="false" >
 						<listhead>
-				            <listheader id="rH" label="Category included" sort="auto"/>
+				            <listheader id="listbRigthtHead" label="Category included" sort="auto"/>
 				        </listhead>
 		        	</listbox>
 				</hlayout>
