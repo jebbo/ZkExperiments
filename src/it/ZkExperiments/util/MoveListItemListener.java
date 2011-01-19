@@ -18,16 +18,16 @@ public class MoveListItemListener implements EventListener {
 	private Listitem itemListbox;
 	private Listitem newListItem;
 	private String listChange;
-	private Listheader listbOrigHead;
+	private Listheader listbSourceHead;
 	private Listheader listbDestHead;
 	
 	public MoveListItemListener(Listbox listbSource, Listbox listbDest, Listitem itemListbox, 
-						String listChange, Listheader listbOrigHead, Listheader listbDestHead) {
+						String listChange, Listheader listbSourceHead, Listheader listbDestHead) {
 		this.listbSource = listbSource;
 		this.listbDest = listbDest;
 		this.itemListbox = itemListbox;
 		this.listChange = listChange;
-		this.listbOrigHead = listbOrigHead;
+		this.listbSourceHead = listbSourceHead;
 		this.listbDestHead = listbDestHead;
 	}
 	
@@ -46,13 +46,14 @@ public class MoveListItemListener implements EventListener {
 		extractId = itemListbox.getId().substring(1);
 		newListItem = new Listitem(itemListbox.getLabel());
 		newListItem.setId(listChange + extractId);
-		newListItem.addEventListener("onClick", new MoveListItemListener(listbDest,listbSource,newListItem,listChange,listbOrigHead,listbDestHead)); 
+		newListItem.addEventListener("onClick", new MoveListItemListener(listbDest,listbSource,newListItem,listChange,listbSourceHead,listbDestHead)); 
 		listbDest.getItems().add(newListItem);
-		listbOrigHead.sort(true,true);
+		listbSourceHead.sort(true,true);
 		listbDestHead.sort(true,true);		
 		
 		listbSource.getItems().remove(itemListbox);
-		if(listbSource.getItems().size() == 0)
+		if(listbSource.getItems().size() == 0) {
 			listbSource.setVisible(false);
+		}
 	}
 }

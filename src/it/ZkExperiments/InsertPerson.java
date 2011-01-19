@@ -1,6 +1,6 @@
 package it.ZkExperiments;
 
-import it.ZkExperiments.util.MoveListItemListener;
+import it.ZkExperiments.util.CopyListItemListener;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -74,7 +74,7 @@ public class InsertPerson extends GenericForwardComposer {
 		
 		while (i.hasNext()) {
 			itemListbox = (Listitem)i.next();
-			itemListbox.addEventListener("onClick", new MoveListItemListener(listbLeft,listbRigth,itemListbox,"l",listbLeftHead,listbRigthtHead)); 
+			itemListbox.addEventListener("onClick", new CopyListItemListener(listbRigth,itemListbox,listbRigthtHead)); 
 		}
 		
 		stmt.close();
