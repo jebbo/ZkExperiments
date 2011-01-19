@@ -12,7 +12,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.Textbox;
 
-public class insertCategory extends GenericForwardComposer 
+public class InsertCategory extends GenericForwardComposer 
 {
 	/**
 	 * 

@@ -1,6 +1,6 @@
 package it.ZkExperiments;
 
-import it.ZkExperiments.util.moveListItemListener;
+import it.ZkExperiments.util.MoveListItemListener;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +26,7 @@ import org.zkoss.zul.Textbox;
  * @author jebbo
  *
  */
-public class insertPerson extends GenericForwardComposer {
+public class InsertPerson extends GenericForwardComposer {
 	/**
 	 * 
 	 */
@@ -74,7 +74,7 @@ public class insertPerson extends GenericForwardComposer {
 		
 		while (i.hasNext()) {
 			itemListbox = (Listitem)i.next();
-			itemListbox.addEventListener("onClick", new moveListItemListener(listbLeft,listbRigth,itemListbox,"l",listbLeftHead,listbRigthtHead)); 
+			itemListbox.addEventListener("onClick", new MoveListItemListener(listbLeft,listbRigth,itemListbox,"l",listbLeftHead,listbRigthtHead)); 
 		}
 		
 		stmt.close();
