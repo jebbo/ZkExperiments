@@ -7,6 +7,7 @@ import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 
 /**
+ * Move a ListItem in the clearest Listbox
  * 
  * @author jebbo
  *

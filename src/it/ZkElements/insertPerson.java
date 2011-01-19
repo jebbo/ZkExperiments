@@ -80,7 +80,8 @@ public class insertPerson extends GenericForwardComposer {
 	}
 	
 	/**
-	 * 
+	 * Insert in the DB the new person and his relationship with categories
+	 *  
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
