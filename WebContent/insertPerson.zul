@@ -1,7 +1,7 @@
 <?page title="Insert Person" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window title="Insert Person" border="normal"
-		apply="it.ZkElements.insertPerson">
+		apply="it.ZkExperiments.insertPerson">
 		<grid fixedLayout="true">
 			<columns>
 				<column label="Type" width="150px" />
