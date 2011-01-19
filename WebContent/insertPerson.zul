@@ -1,78 +1,88 @@
 <?page title="Insert Person" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Insert Person" border="normal" apply="it.ZkElements.insertPerson">
-	<grid fixedLayout="true">
-        <columns>
-            <column label="Type" width="150px" />
-            <column label="Content" />
-        </columns>
-        <rows>
-        	<row>
-        		<label  value="Category" width="150px" />
-                <hlayout>
-		        	<listbox id = "listbLeft" width="150px" rows="4">
-		        		<listhead>
-				            <listheader id="listbLeftHead" label="Category to insert" sort="auto"/>
-				        </listhead>
-		        	</listbox>
-					<listbox id = "listbRigth" width="150px" rows="4" visible="false" >
-						<listhead>
-				            <listheader id="listbRigthtHead" label="Category included" sort="auto"/>
-				        </listhead>
-		        	</listbox>
-				</hlayout>
-            </row>
-            <row>
-                <label  value="Name" width="150px" />
-                <hlayout>
-                    <textbox id="name" width="150px" />
-                </hlayout>
-            </row>
-            <row>
-                <label  value="Surname" width="150px" />
-                <hlayout>
-                    <textbox id="surname" width="150px" />
-                </hlayout>
-            </row>
-            <row>
-                Phone:
-                <textbox id="phone" width="150px" maxlength="15" />
-					<!-- constraint="/^[0-9]+$/: Please insert only number" --> 
-            </row>
-            <row>
-                Birthday:
-                <datebox id="birthday" format="dd/MM/yyyy" width="150px" />
-            </row>
-            <row>
-                E-mail:
-                <textbox id="email" width="150px" /> 
-                    <!-- constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address"   -->                
-            </row>
-            <row>
-                Memo:
-                <vlayout>
-                    <div style="width:375px;text-align:right;padding:0;">
-                        Adjust Height:
-                        <spinner value="6" constraint="no negative,no zero">
-                            <attribute name="onChanging"><![CDATA[
-                                if (event.value.length() > 0 && Integer.parseInt(event.value) > 0)
-                                    note.rows = Integer.parseInt(event.value);    
-                            ]]></attribute>
-                        </spinner>
-                    </div>
-                    <textbox id="note" rows="6" width="370px;">
-                        <attribute name="value"></attribute>
-                    </textbox>
-                </vlayout>
-            </row>
-            
-            <row>
-                <cell colspan="3" style="text-align:center">
-                    <button id="insert" label="Submit" width="100px" height="30px">                  
-                    </button>
-                </cell>
-            </row>
-        </rows>
-    </grid>
- </window>
+	<window title="Insert Person" border="normal"
+		apply="it.ZkElements.insertPerson">
+		<grid fixedLayout="true">
+			<columns>
+				<column label="Type" width="150px" />
+				<column label="Content" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Category" width="150px" />
+					<hlayout>
+						<listbox id="listbLeft" width="150px"
+							rows="4">
+							<listhead>
+								<listheader id="listbLeftHead"
+									label="Category to insert" sort="auto" />
+							</listhead>
+						</listbox>
+						<listbox id="listbRigth" width="150px" rows="4"
+							visible="false">
+							<listhead>
+								<listheader id="listbRigthtHead"
+									label="Category included" sort="auto" />
+							</listhead>
+						</listbox>
+					</hlayout>
+				</row>
+				<row>
+					<label value="Name" width="150px" />
+					<hlayout>
+						<textbox id="name" width="150px" />
+					</hlayout>
+				</row>
+				<row>
+					<label value="Surname" width="150px" />
+					<hlayout>
+						<textbox id="surname" width="150px" />
+					</hlayout>
+				</row>
+				<row>
+					Phone:
+					<textbox id="phone" width="150px" maxlength="15" />
+					<!-- constraint="/^[0-9]+$/: Please insert only number" -->
+				</row>
+				<row>
+					Birthday:
+					<datebox id="birthday" format="dd/MM/yyyy"
+						width="150px" />
+				</row>
+				<row>
+					E-mail:
+					<textbox id="email" width="150px" />
+					<!-- constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address"   -->
+				</row>
+				<row>
+					Memo:
+					<vlayout>
+						<div
+							style="width:375px;text-align:right;padding:0;">
+							Adjust Height:
+							<spinner value="6"
+								constraint="no negative,no zero">
+								<attribute name="onChanging"><![CDATA[
+									if (event.value.length() > 0 && Integer.parseInt(event.value) > 0)
+										note.rows = Integer.parseInt(event.value);
+								]]>
+								</attribute>
+							</spinner>
+						</div>
+						<textbox id="note" rows="6" width="370px;">
+							<attribute name="value"></attribute>
+						</textbox>
+					</vlayout>
+				</row>
+
+				<row>
+					<cell colspan="3" style="text-align:center">
+						<button id="insert" label="Submit" width="100px"
+							height="30px">
+						</button>
+					</cell>
+				</row>
+			</rows>
+		</grid>
+	</window>
 </zk>

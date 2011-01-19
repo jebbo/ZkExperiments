@@ -1,4 +1,4 @@
-package it.ZkElements;
+package it.ZkExperiments.util;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -12,7 +12,7 @@ import org.zkoss.zul.Listitem;
  * @author jebbo
  *
  */
-public class ListListener implements EventListener {
+public class moveListItemListener implements EventListener {
 	private Listbox listbSource;
 	private Listbox listbDest;
 	private Listitem itemListbox;
@@ -21,7 +21,7 @@ public class ListListener implements EventListener {
 	private Listheader listbOrigHead;
 	private Listheader listbDestHead;
 	
-	public ListListener(Listbox listbSource, Listbox listbDest, Listitem itemListbox, 
+	public moveListItemListener(Listbox listbSource, Listbox listbDest, Listitem itemListbox, 
 						String listChange, Listheader listbOrigHead, Listheader listbDestHead) {
 		this.listbSource = listbSource;
 		this.listbDest = listbDest;
@@ -46,7 +46,7 @@ public class ListListener implements EventListener {
 		extractId = itemListbox.getId().substring(1);
 		newListItem = new Listitem(itemListbox.getLabel());
 		newListItem.setId(listChange + extractId);
-		newListItem.addEventListener("onClick", new ListListener(listbDest,listbSource,newListItem,listChange,listbOrigHead,listbDestHead)); 
+		newListItem.addEventListener("onClick", new moveListItemListener(listbDest,listbSource,newListItem,listChange,listbOrigHead,listbDestHead)); 
 		listbDest.getItems().add(newListItem);
 		listbOrigHead.sort(true,true);
 		listbDestHead.sort(true,true);		
