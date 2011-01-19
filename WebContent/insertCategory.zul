@@ -1,6 +1,6 @@
 <?page title="Insert Category" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Insert Category" border="normal" apply="it.ZkExperiments.insertCategory">
+<window title="Insert Category" border="normal" apply="it.ZkExperiments.InsertCategory">
 	<grid fixedLayout="true">
         <columns>
             <column label="Type" width="150px" />
