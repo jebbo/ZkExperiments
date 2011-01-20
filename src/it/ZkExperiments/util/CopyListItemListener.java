@@ -49,7 +49,7 @@ public class CopyListItemListener implements EventListener {
 	 * Search if listbox contains the Listitem
 	 * 
 	 * @param itemID
-	 * @return
+	 * @return true if element exist, false id doesn't exist
 	 */
 	private boolean searchListItem(String itemID) {
 		Listitem item;
