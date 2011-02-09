@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Textbox;
 
@@ -22,7 +23,13 @@ public class InsertCategory extends GenericForwardComposer {
 		super.doAfterCompose(comp);
 	}
 	
-	public void onClick$insert() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public void onClick$insert() throws WrongValueException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		categoryInsert(name.getValue(),description.getValue());
+		
+		alert("Category saved!");
+	}
+	
+	private static void categoryInsert(String name,String desc) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		
 		Connection conn = DriverManager
@@ -30,12 +37,10 @@ public class InsertCategory extends GenericForwardComposer {
                                    "user=root&password=");
 		
 		PreparedStatement stmt = conn.prepareStatement("INSERT INTO category(name,description) VALUES(?,?)");
-		stmt.setString(1,name.getValue());
-		stmt.setString(2,description.getValue());
+		stmt.setString(1,name);
+		stmt.setString(2,desc);
 		
 		stmt.execute();
 		conn.close();
-		
-		alert("Category saved!");
 	}
 }
