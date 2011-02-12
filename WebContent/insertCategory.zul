@@ -1,6 +1,6 @@
 <?page title="Insert Category" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Insert Category" border="normal" apply="it.ZkExperiments.InsertCategory">
+<window title="Insert Category" border="normal" apply="org.trainingfrequence.section.person.InsertCategory">
 	<grid fixedLayout="true">
         <columns>
             <column label="Type" width="150px" />
