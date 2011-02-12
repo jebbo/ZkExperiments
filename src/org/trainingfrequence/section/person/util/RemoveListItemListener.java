@@ -1,4 +1,4 @@
-package it.ZkExperiments.util;
+package org.trainingfrequence.section.person.util;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;

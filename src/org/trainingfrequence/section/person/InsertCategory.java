@@ -1,4 +1,4 @@
-package it.ZkExperiments;
+package org.trainingfrequence.section.person;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

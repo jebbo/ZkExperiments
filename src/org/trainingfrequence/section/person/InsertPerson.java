@@ -1,7 +1,5 @@
-package it.ZkExperiments;
+package org.trainingfrequence.section.person;
 
-import it.ZkExperiments.util.CopyListItemListener;
-import it.ZkExperiments.util.MoveListItemListener;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,6 +10,8 @@ import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
 
+import org.trainingfrequence.section.person.util.CopyListItemListener;
+import org.trainingfrequence.section.person.util.MoveListItemListener;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Combobox;
