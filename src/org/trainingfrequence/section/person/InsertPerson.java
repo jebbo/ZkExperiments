@@ -1,5 +1,23 @@
 package org.trainingfrequence.section.person;
 
+/*
+	TRAINING FREQUENCE
+	Copyright (C) 2011  Maurizio Mazzotta jebbo85@gmail.com
+	
+	This file is a part of Training Frequence
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.trainingfrequence.section.person.util.CopyListItemListener;
-import org.trainingfrequence.section.person.util.MoveListItemListener;
+//import org.trainingfrequence.section.person.util.MoveListItemListener;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Combobox;
@@ -28,9 +46,6 @@ import org.zkoss.zul.Textbox;
  *
  */
 public class InsertPerson extends GenericForwardComposer {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	Combobox category;
 	Textbox name;
@@ -45,6 +60,9 @@ public class InsertPerson extends GenericForwardComposer {
 	Listheader listbLeftHead;
 	Listheader listbRigthtHead;
 	
+	//Can't determine type of List and Iterator because they can assume 
+	//different object type childs of ZK listbox
+	@SuppressWarnings("unchecked")
 	@Override
 	public void doAfterCompose(Component comp) throws Exception 
 	{
@@ -75,14 +93,21 @@ public class InsertPerson extends GenericForwardComposer {
 		
 		while (i.hasNext()) {
 			itemListbox = (Listitem)i.next();
-			//itemListbox.addEventListener("onClick", new CopyListItemListener(listbRigth,itemListbox,listbRigthtHead)); 
-			itemListbox.addEventListener("onClick", new MoveListItemListener(listbLeft,listbRigth,itemListbox,"l",listbLeftHead,listbRigthtHead)); 
+			itemListbox.addEventListener("onClick", 
+					new CopyListItemListener(listbRigth,itemListbox)); 
+			//itemListbox.addEventListener("onClick", 
+			//		new MoveListItemListener(listbLeft,listbRigth,
+			//				itemListbox,"l")); 
 		}
 		
 		stmt.close();
 		conn.close();
 	}
 	
+	
+	//Can't determine type of List and Iterator because they can assume 
+	//different object type childs of ZK listbox
+	@SuppressWarnings("unchecked")
 	/**
 	 * Insert in the DB the new person and his relationship with categories
 	 *  

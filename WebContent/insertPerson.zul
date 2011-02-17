@@ -14,15 +14,13 @@
 						<listbox id="listbLeft" width="150px"
 							rows="4">
 							<listhead>
-								<listheader id="listbLeftHead"
-									label="Category to insert" sort="auto" />
+								<listheader label="Category to insert" sort="auto" />
 							</listhead>
 						</listbox>
 						<listbox id="listbRigth" width="150px" rows="4"
 							visible="false">
 							<listhead>
-								<listheader id="listbRigthtHead"
-									label="Category included" sort="auto" />
+								<listheader label="Category included" sort="auto" />
 							</listhead>
 						</listbox>
 					</hlayout>
