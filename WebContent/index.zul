@@ -1,6 +1,20 @@
-<?page title="Auto Generated index.zul"?>
-<window title="Hello World!!" border="normal" width="200px">
-
-<label value="You are using: ${desktop.webApp.version}"/>
-
-</window>
+	
+	<hbox>
+        <vbox spacing="30">
+            <window id="person" apply="org.trainingfrequence.section.Index" border="normal" popup="true">
+            	<image src="imgs/people.jpg" ></image>
+            </window>
+            
+            <window border="normal" onClick="">
+            	<image src="imgs/calendar.jpg" ></image>
+            </window>
+         </vbox>
+         <vbox spacing="30">
+            <window border="normal">
+            	<image src="imgs/bus.jpg" ></image>
+            </window>
+            <window border="normal">
+            	<image src="imgs/chart.jpg" ></image>
+            </window>
+        </vbox>
+     </hbox>
