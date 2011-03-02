@@ -5,18 +5,21 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.zkoss.idom.Attribute;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 public class InsertCategory extends GenericForwardComposer {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Textbox name;
-	Textbox description;
+	private Textbox name;
+	private Textbox description;
+	private Window win;
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -30,7 +33,7 @@ public class InsertCategory extends GenericForwardComposer {
 	}
 	
 	private static void categoryInsert(String name,String desc) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		/*Class.forName("com.mysql.jdbc.Driver").newInstance();
 		
 		Connection conn = DriverManager
 				.getConnection("jdbc:mysql://localhost/test?" +
@@ -41,6 +44,6 @@ public class InsertCategory extends GenericForwardComposer {
 		stmt.setString(2,desc);
 		
 		stmt.execute();
-		conn.close();
+		conn.close();*/
 	}
 }

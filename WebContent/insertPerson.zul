@@ -1,6 +1,6 @@
 <?page title="Insert Person" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Insert Person" border="normal" width="600px" style="background-color: red"
+	<window title="Insert Person" border="normal" width="650px" style="background-color: red"
 			apply="org.trainingfrequence.section.person.InsertPerson">
 		<grid fixedLayout="true">
 			<columns>
@@ -23,7 +23,45 @@
 								<listheader label="Category included" sort="auto" />
 							</listhead>
 						</listbox>
-					</hlayout>
+					
+
+					<style>div.minimize {
+				        border: 1px solid #79858E;
+				        background: #D3E1EC;
+				        position: absolute;
+				        opacity: 0.8;
+				        z-index: 999999;
+				    }</style>
+				    <button id="insCat" label="New Category" autodisable="self">
+				        <attribute name="onClick"><![CDATA[
+				            Executions.createComponents("insertCategory.zul", null, null);
+				            win.doModal();
+				        ]]></attribute>
+				    </button>
+				     
+				    <!-- Animation of creating window -->
+				    <script type="text/javascript"><![CDATA[
+				        function flowDown(wleft, wtop) {
+				            var w = jq('$win'), b = jq('$insCat');
+				            //Minimize from the Window to the order button
+				            jq('<div class="minimize" />').appendTo("body").css({
+				                left : wleft,
+				                top : wtop,
+				                width : w.width(),
+				                height : 10
+				            });
+				            p = b.offset();
+				            jq('.minimize').animate({
+				                left : p.left + b.width() / 2,
+				                top : p.top + b.height() / 2,
+				                width : 0,
+				                height : 0
+				            }, function() {
+				                jq(this).remove();
+				            });
+				        }
+				    ]]></script>
+				    </hlayout>
 				</row>
 				<row>
 					<label value="Name" width="150px" />
@@ -75,7 +113,7 @@
 
 				<row>
 					<cell colspan="3" style="text-align:center">
-						<button id="insert" label="Submit" width="100px"
+						<button id="action" width="100px"
 							height="30px">
 						</button>
 					</cell>

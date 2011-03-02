@@ -27,16 +27,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
-
+//import org.apache.log4j.Logger;
+//import org.apache.log4j.PropertyConfigurator;
 import org.trainingfrequence.section.person.util.CopyListItemListener;
 //import org.trainingfrequence.section.person.util.MoveListItemListener;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
 
@@ -46,19 +46,20 @@ import org.zkoss.zul.Textbox;
  *
  */
 public class InsertPerson extends GenericForwardComposer {
+	
+	//static final Logger logger = Logger.getLogger(InsertPerson.class);
+	
 	private static final long serialVersionUID = 1L;
-	Combobox category;
-	Textbox name;
-	Textbox surname;
-	Textbox phone;
-	Decimalbox height;
-	Datebox birthday;
-	Textbox email;
-	Textbox note;
-	Listbox listbLeft;
-	Listbox listbRigth;
-	Listheader listbLeftHead;
-	Listheader listbRigthtHead;
+	private Textbox name;
+	private Textbox surname;
+	private Textbox phone;
+	private Datebox birthday;
+	private Textbox email;
+	private Textbox note;
+	private Listbox listbLeft;
+	private Listbox listbRigth;
+	private Button action;
+	private Integer id;
 	
 	//Can't determine type of List and Iterator because they can assume 
 	//different object type childs of ZK listbox
@@ -66,11 +67,33 @@ public class InsertPerson extends GenericForwardComposer {
 	@Override
 	public void doAfterCompose(Component comp) throws Exception 
 	{
+		//PropertyConfigurator.configure("log4j.properties");
 		Listitem itemListbox;
 		List listItem;
 		Iterator i;
+		id = null;
 		
 		super.doAfterCompose(comp);
+		
+		try {
+			id = (Integer) Executions.getCurrent().getDesktop().getAttribute("id");
+		}
+		catch (ClassCastException cce){
+			//TODO log frontend
+			//logger.error("Id value isn't Integer");
+		}
+		
+		if (Executions.getCurrent().getDesktop().hasAttribute("id")) {
+			//TODO cambiare il valore del setAttribute in COSTANTE
+			action.setAttribute("actionType", "u");
+			action.setLabel("Modify Person");
+			//logger.info("Page Modify");
+		}
+		else {
+			action.setLabel("Insert Person");
+			//logger.info("Page Insert");
+		}
+		Executions.getCurrent().getDesktop().removeAttribute("id");
 		
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		
@@ -116,13 +139,17 @@ public class InsertPerson extends GenericForwardComposer {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void onClick$insert() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public void onClick$action() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		long dataBir = 0;
 		int personID = 0;
 		String categoryID;
 		Listitem itemListbox;
 		List listItem;
 		Iterator i;
+		
+		/*if (action.getAttribute("actionType").equals("u")) {
+			
+		}*/
 		
 		if (birthday.getValue()!=null)
 			dataBir = birthday.getValue().getTime();

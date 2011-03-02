@@ -85,11 +85,12 @@ public class CopyListItemListener implements EventListener {
 		Iterator i;
 		boolean find = Boolean.FALSE;
 		
+		
+		
 		listItem = listb.getItems();
 		
 		i = listItem.iterator();
-		
-		while ((i.hasNext()) && (Boolean.FALSE)) {
+		while ((i.hasNext()) && (find == Boolean.FALSE)) {
 			item = (Listitem)i.next();
 			if (item.getId().equals(itemID)) {
 				find = Boolean.TRUE;
