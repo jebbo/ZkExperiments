@@ -5,12 +5,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.trainingfrequence.section.person.util.Util;
 import org.zkoss.idom.Attribute;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.Grid;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
+
+import com.sun.org.apache.xerces.internal.dom.ParentNode;
 
 public class InsertCategory extends GenericForwardComposer {
 	/**
@@ -21,6 +26,7 @@ public class InsertCategory extends GenericForwardComposer {
 	private Textbox description;
 	private Window win;
 	
+	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
@@ -30,6 +36,12 @@ public class InsertCategory extends GenericForwardComposer {
 		categoryInsert(name.getValue(),description.getValue());
 		
 		alert("Category saved!");
+	}
+	
+	public void onClose$win() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		Grid parent = (Grid)win.getParent().getChildren().get(0);
+		System.out.println(parent.getChildren());
+		//Util.renderizeListbox(parent.getAttribu, listbRigth);
 	}
 	
 	private static void categoryInsert(String name,String desc) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {

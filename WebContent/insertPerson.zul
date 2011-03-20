@@ -1,6 +1,6 @@
 <?page title="Insert Person" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Insert Person" border="normal" width="650px" style="background-color: red"
+	<window id="win1" title="Insert Person" border="normal" width="650px" style="background-color: red"
 			apply="org.trainingfrequence.section.person.InsertPerson">
 		<grid fixedLayout="true">
 			<columns>
@@ -33,8 +33,8 @@
 				        z-index: 999999;
 				    }</style>
 				    <button id="insCat" label="New Category" autodisable="self">
-				        <attribute name="onClick"><![CDATA[
-				            Executions.createComponents("insertCategory.zul", null, null);
+				        <attribute name="onClick"><![CDATA[                               
+				            Executions.createComponents("insertCategory.zul", win1, null);
 				            win.doModal();
 				        ]]></attribute>
 				    </button>

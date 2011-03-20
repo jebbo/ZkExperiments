@@ -6,6 +6,13 @@ import java.util.List;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
+import org.zkoss.zul.Listitem;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /*
 	TRAINING FREQUENCE
@@ -60,6 +67,45 @@ public class Util {
 			}//end if
 		}//end while
 		listHeaderFind.sort(Boolean.TRUE, Boolean.TRUE);
+	}
+	
+	public static void renderizeListbox (Listbox listbLeft, Listbox listbRigth) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		Listitem itemListbox;
+		List listItem;
+		Iterator i;
+		
+		System.out.println("CHIAMATA RENDERIZZA LISTBOX");
+		
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		
+		Connection conn = DriverManager
+				.getConnection("jdbc:mysql://localhost/test?" +
+                                   "user=root&password=");
+		
+		Statement stmt = conn.createStatement();
+		ResultSet rs  = stmt.executeQuery("SELECT * FROM category ORDER BY name");
+		
+		while (rs.next()) {
+			itemListbox = new Listitem(rs.getString(2));
+			itemListbox.setId("l"+rs.getString(1));
+			listbLeft.getItems().add(itemListbox);	
+		}
+		
+		listItem = listbLeft.getItems();
+		
+		i = listItem.iterator();
+		
+		while (i.hasNext()) {
+			itemListbox = (Listitem)i.next();
+			itemListbox.addEventListener("onClick", 
+					new CopyListItemListener(listbRigth,itemListbox)); 
+			//itemListbox.addEventListener("onClick", 
+			//		new MoveListItemListener(listbLeft,listbRigth,
+			//				itemListbox,"l")); 
+		}
+		
+		stmt.close();
+		conn.close();
 	}
 	
 }

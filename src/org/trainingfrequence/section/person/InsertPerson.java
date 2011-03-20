@@ -33,12 +33,16 @@ import org.trainingfrequence.section.person.util.CopyListItemListener;
 //import org.trainingfrequence.section.person.util.MoveListItemListener;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
+
+import org.trainingfrequence.section.person.util.*;
 
 /**
  * 
@@ -60,17 +64,13 @@ public class InsertPerson extends GenericForwardComposer {
 	private Listbox listbRigth;
 	private Button action;
 	private Integer id;
+	private Window win;
 	
-	//Can't determine type of List and Iterator because they can assume 
-	//different object type childs of ZK listbox
-	@SuppressWarnings("unchecked")
 	@Override
 	public void doAfterCompose(Component comp) throws Exception 
 	{
 		//PropertyConfigurator.configure("log4j.properties");
-		Listitem itemListbox;
-		List listItem;
-		Iterator i;
+
 		id = null;
 		
 		super.doAfterCompose(comp);
@@ -95,37 +95,23 @@ public class InsertPerson extends GenericForwardComposer {
 		}
 		Executions.getCurrent().getDesktop().removeAttribute("id");
 		
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		
-		Connection conn = DriverManager
-				.getConnection("jdbc:mysql://localhost/test?" +
-                                   "user=root&password=");
-		
-		Statement stmt = conn.createStatement();
-		ResultSet rs  = stmt.executeQuery("SELECT * FROM category ORDER BY name");
-		
-		while (rs.next()) {
-			itemListbox = new Listitem(rs.getString(2));
-			itemListbox.setId("l"+rs.getString(1));
-			listbLeft.getItems().add(itemListbox);	
-		}
-		
-		listItem = listbLeft.getItems();
-		
-		i = listItem.iterator();
-		
-		while (i.hasNext()) {
-			itemListbox = (Listitem)i.next();
-			itemListbox.addEventListener("onClick", 
-					new CopyListItemListener(listbRigth,itemListbox)); 
-			//itemListbox.addEventListener("onClick", 
-			//		new MoveListItemListener(listbLeft,listbRigth,
-			//				itemListbox,"l")); 
-		}
-		
-		stmt.close();
-		conn.close();
+		Util.renderizeListbox(listbLeft, listbRigth);
 	}
+	
+	/*public void onClick$insCat() throws SuspendNotAllowedException, InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		Executions.createComponents("insertCategory.zul", null, null);
+        //win.doModal();
+        
+        //Util.renderizeListbox(listbLeft, listbRigth);
+	}
+	
+	public Listbox getlistbLeft() {
+		return this.listbLeft; 
+	}
+	
+	public Listbox getlistbRigth() {
+		return this.listbRigth; 
+	}*/
 	
 	
 	//Can't determine type of List and Iterator because they can assume 
@@ -154,7 +140,7 @@ public class InsertPerson extends GenericForwardComposer {
 		if (birthday.getValue()!=null)
 			dataBir = birthday.getValue().getTime();
 		
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		/*Class.forName("com.mysql.jdbc.Driver").newInstance();
 		
 		Connection conn = DriverManager
 				.getConnection("jdbc:mysql://localhost/test?" +
@@ -196,7 +182,7 @@ public class InsertPerson extends GenericForwardComposer {
 			stmt.close();
 		}
 		
-		conn.close();
+		conn.close();*/
 		
 		alert("Person saved!");
 		
