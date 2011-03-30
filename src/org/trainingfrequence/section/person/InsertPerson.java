@@ -25,6 +25,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 //import org.apache.log4j.Logger;
@@ -64,7 +65,7 @@ public class InsertPerson extends GenericForwardComposer {
 	private Listbox listbRigth;
 	private Button action;
 	private Integer id;
-	private Window win;
+	private Window win1;
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception 
@@ -98,13 +99,11 @@ public class InsertPerson extends GenericForwardComposer {
 		Util.renderizeListbox(listbLeft, listbRigth);
 	}
 	
-	/*public void onClick$insCat() throws SuspendNotAllowedException, InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		Executions.createComponents("insertCategory.zul", null, null);
-        //win.doModal();
-        
-        //Util.renderizeListbox(listbLeft, listbRigth);
+	/*public void onClick$insCat() {
+		  
 	}
-	
+	*/
+	/*
 	public Listbox getlistbLeft() {
 		return this.listbLeft; 
 	}

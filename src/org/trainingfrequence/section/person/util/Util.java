@@ -80,7 +80,7 @@ public class Util {
 		
 		Connection conn = DriverManager
 				.getConnection("jdbc:mysql://localhost/test?" +
-                                   "user=root&password=");
+                                   "user=root&password=19god85-");
 		
 		Statement stmt = conn.createStatement();
 		ResultSet rs  = stmt.executeQuery("SELECT * FROM category ORDER BY name");

@@ -33,8 +33,11 @@
 				        z-index: 999999;
 				    }</style>
 				    <button id="insCat" label="New Category" autodisable="self">
-				        <attribute name="onClick"><![CDATA[                               
-				            Executions.createComponents("insertCategory.zul", win1, null);
+				       <attribute name="onClick"><![CDATA[
+							HashMap map = new HashMap();
+							map.put("listbLeft", listbLeft);
+							map.put("listbRigth", listbRigth);
+							Executions.createComponents("insertCategory.zul", win1, map);
 				            win.doModal();
 				        ]]></attribute>
 				    </button>
