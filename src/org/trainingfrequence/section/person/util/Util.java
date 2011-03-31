@@ -1,18 +1,3 @@
-package org.trainingfrequence.section.person.util;
-
-import java.util.Iterator;
-import java.util.List;
-
-import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listhead;
-import org.zkoss.zul.Listheader;
-import org.zkoss.zul.Listitem;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /*
 	TRAINING FREQUENCE
@@ -33,11 +18,33 @@ import java.sql.Statement;
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+package org.trainingfrequence.section.person.util;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listhead;
+import org.zkoss.zul.Listheader;
+import org.zkoss.zul.Listitem;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *  @author Maurizio Mazzotta
  */
 public class Util {
 	
+	/**
+	 * This method make a sort ascendent in the Listbox passed
+	 * 
+	 * @param listb
+	 */
 	//Can't determine type of List and Iterator because they can assume 
 	//different object type childs of ZK listbox
 	@SuppressWarnings("unchecked")
@@ -69,32 +76,37 @@ public class Util {
 		listHeaderFind.sort(Boolean.TRUE, Boolean.TRUE);
 	}
 	
-	public static void renderizeListbox (Listbox listbLeft, Listbox listbRigth) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		Listitem itemListbox;
+	/**
+	 * This method read categories in DB and create list items for the listbox, 
+	 * then add for every item a EventListener that allows the Listitem to move in the next Listbox 
+	 * when the user click on the Listitem
+	 * 
+	 * @param listbLeft
+	 * @param listbRigth
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	//Can't determine type of List and Iterator because they can assume 
+	//different object type childs of ZK listbox
+	@SuppressWarnings("unchecked")
+	public static void renderizeListbox (Listbox listbLeft, Listbox listbRigth) 
+			throws InstantiationException, IllegalAccessException, 
+				ClassNotFoundException, SQLException {
+		Listitem itemListbox = null;
 		List listItem;
 		Iterator i;
+		ArrayList<Listitem> listItems = new ArrayList<Listitem>(); 
 		
-		System.out.println("CHIAMATA RENDERIZZA LISTBOX");
-		
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		
-		Connection conn = DriverManager
-				.getConnection("jdbc:mysql://localhost/test?" +
-                                   "user=root&password=19god85-");
-		
-		Statement stmt = conn.createStatement();
-		ResultSet rs  = stmt.executeQuery("SELECT * FROM category ORDER BY name");
-		
-		while (rs.next()) {
-			itemListbox = new Listitem(rs.getString(2));
-			itemListbox.setId("l"+rs.getString(1));
-			listbLeft.getItems().add(itemListbox);	
+		listItems = getItemLisbox();
+		for(Listitem l: listItems) {
+			listbLeft.getItems().add(l);	
 		}
 		
+		//Cycle on the Listitem and add the EventListener to allow the moving in the next Listbox
 		listItem = listbLeft.getItems();
-		
 		i = listItem.iterator();
-		
 		while (i.hasNext()) {
 			itemListbox = (Listitem)i.next();
 			itemListbox.addEventListener("onClick", 
@@ -103,9 +115,35 @@ public class Util {
 			//		new MoveListItemListener(listbLeft,listbRigth,
 			//				itemListbox,"l")); 
 		}
+	}
+	
+	//TODO Questo metodo verrà sostituito dalle classe di Luca
+	public static ArrayList<Listitem> getItemLisbox () 
+			throws InstantiationException, IllegalAccessException,
+				ClassNotFoundException, SQLException{
+		Listitem itemListbox = null;
+		ArrayList<Listitem> list = new ArrayList<Listitem>();
 		
+		
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		Connection conn = DriverManager
+				.getConnection("jdbc:mysql://localhost/test?" +
+                                   "user=root&password=19god85-");
+		
+		Statement stmt = conn.createStatement();
+		ResultSet rs  = stmt.executeQuery("SELECT * FROM category ORDER BY name");
+		
+		//create a ListItem for every records and immediately add the object at the Listbox
+		while (rs.next()) {
+			itemListbox = new Listitem(rs.getString(2));
+			itemListbox.setId("l"+rs.getString(1));
+			list.add(itemListbox);
+		}
+		rs.close();
 		stmt.close();
 		conn.close();
+		
+		return list;
 	}
 	
 }

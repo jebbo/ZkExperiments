@@ -1,4 +1,3 @@
-package org.trainingfrequence.section.person;
 
 /*
 	TRAINING FREQUENCE
@@ -19,35 +18,30 @@ package org.trainingfrequence.section.person;
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+package org.trainingfrequence.section.person;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-//import org.apache.log4j.Logger;
-//import org.apache.log4j.PropertyConfigurator;
-import org.trainingfrequence.section.person.util.CopyListItemListener;
-//import org.trainingfrequence.section.person.util.MoveListItemListener;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Window;
 
 import org.trainingfrequence.section.person.util.*;
 
 /**
  * 
- * @author jebbo
+ * @author Maurizio Mazzotta
  *
  */
 public class InsertPerson extends GenericForwardComposer {
@@ -63,21 +57,20 @@ public class InsertPerson extends GenericForwardComposer {
 	private Textbox note;
 	private Listbox listbLeft;
 	private Listbox listbRigth;
-	private Button action;
+	private Button  action;
 	private Integer id;
-	private Window win1;
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception 
 	{
 		//PropertyConfigurator.configure("log4j.properties");
 
-		id = null;
+		setId(null);
 		
 		super.doAfterCompose(comp);
 		
 		try {
-			id = (Integer) Executions.getCurrent().getDesktop().getAttribute("id");
+			setId((Integer) Executions.getCurrent().getDesktop().getAttribute("id"));
 		}
 		catch (ClassCastException cce){
 			//TODO log frontend
@@ -99,23 +92,6 @@ public class InsertPerson extends GenericForwardComposer {
 		Util.renderizeListbox(listbLeft, listbRigth);
 	}
 	
-	/*public void onClick$insCat() {
-		  
-	}
-	*/
-	/*
-	public Listbox getlistbLeft() {
-		return this.listbLeft; 
-	}
-	
-	public Listbox getlistbRigth() {
-		return this.listbRigth; 
-	}*/
-	
-	
-	//Can't determine type of List and Iterator because they can assume 
-	//different object type childs of ZK listbox
-	@SuppressWarnings("unchecked")
 	/**
 	 * Insert in the DB the new person and his relationship with categories
 	 *  
@@ -124,13 +100,10 @@ public class InsertPerson extends GenericForwardComposer {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void onClick$action() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public void onClick$action() throws InstantiationException, IllegalAccessException,
+			ClassNotFoundException, SQLException {
 		long dataBir = 0;
-		int personID = 0;
-		String categoryID;
-		Listitem itemListbox;
-		List listItem;
-		Iterator i;
+		
 		
 		/*if (action.getAttribute("actionType").equals("u")) {
 			
@@ -139,20 +112,47 @@ public class InsertPerson extends GenericForwardComposer {
 		if (birthday.getValue()!=null)
 			dataBir = birthday.getValue().getTime();
 		
-		/*Class.forName("com.mysql.jdbc.Driver").newInstance();
+		if(personInsert(name.getValue(),surname.getValue(),phone.getValue(),dataBir,
+				email.getValue(),note.getValue())) {
+			alert("Person saved!");
+		}
+		else {
+			alert("Person NOT saved!");
+		}
 		
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+	
+	//TODO Questa classe verra' sostituita dall'oggetto di Luca (deve tornare booleano)
+	@SuppressWarnings("unchecked")
+	private Boolean personInsert(String name, String surname, String phone, 
+			long dataBir, String email, String note) throws InstantiationException, IllegalAccessException,
+	ClassNotFoundException, SQLException { 
+		int personID = 0;
+		String categoryID;
+		Listitem itemListbox;
+		List listItem;
+		Iterator i;
+		
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		Connection conn = DriverManager
 				.getConnection("jdbc:mysql://localhost/test?" +
-                                   "user=root&password=");
-		
+                                   "user=root&password=19god85-");
 		PreparedStatement stmt = conn.prepareStatement("INSERT INTO person(name,surname,phone,birthday,email,note) VALUES(?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
-		stmt.setString(1,name.getValue());
-		stmt.setString(2,surname.getValue());
-		stmt.setString(3,phone.getValue());
+		stmt.setString(1,name);
+		stmt.setString(2,surname);
+		stmt.setString(3,phone);
 		stmt.setLong  (4,dataBir);
-		stmt.setString(5,email.getValue());
-		stmt.setString(6,note.getValue());
-		
+		stmt.setString(5,email);
+		stmt.setString(6,note);
 		int num = stmt.executeUpdate();
 		if (num == 1) {
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -163,13 +163,10 @@ public class InsertPerson extends GenericForwardComposer {
 			}
 			rs.close();
 		}
-		
 		stmt.close();
 		
 		listItem = listbRigth.getItems();
-		
 		i = listItem.iterator();
-		
 		while (i.hasNext()) {
 			itemListbox = (Listitem)i.next();
 			categoryID = itemListbox.getId().substring(1);
@@ -180,10 +177,8 @@ public class InsertPerson extends GenericForwardComposer {
 			stmt.executeUpdate();
 			stmt.close();
 		}
+		conn.close();
 		
-		conn.close();*/
-		
-		alert("Person saved!");
-		
+		return Boolean.TRUE;
 	}
 }
