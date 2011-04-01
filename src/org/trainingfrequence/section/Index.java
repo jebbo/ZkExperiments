@@ -1,15 +1,13 @@
 package org.trainingfrequence.section;
 
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.Include;
 
 
 public class Index extends GenericForwardComposer {
-
-	/**
-	 * 
-	 */
+	Include inner;
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Override
@@ -17,9 +15,8 @@ public class Index extends GenericForwardComposer {
 		super.doAfterCompose(comp);
 	}
 	
-	public void onClick$person() {
-		
-		Executions.sendRedirect("insertPerson.zul");
+	public void onClick$insPerson() {	
+		inner.setSrc("insertPerson.zul");
 	}
 	
 }

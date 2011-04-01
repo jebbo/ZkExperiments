@@ -1,19 +1,105 @@
-	
-	<hbox>
-            <window id="person" apply="org.trainingfrequence.section.Index" 
-            border="normal" popup="true" context="editPopup">
-            	<image src="imgs/people.jpg" ></image>
-            </window>
-            <menupopup id="editPopup">
-       	 		<menuitem image="/widgets/menu/context_menu/img/Bubble-16x16.png" label="Message" />
-            </menupopup>
-            <window border="normal" onClick="">
-            	<image src="imgs/calendar.jpg" ></image>
-            </window>
-            <window border="normal">
-            	<image src="imgs/bus.jpg" ></image>
-            </window>
-            <window border="normal">
-            	<image src="imgs/chart.jpg" ></image>
-            </window>
-     </hbox>
+<zk>
+    <style>
+        .z-borderlayout {
+            background: #FFFFFF
+        }
+        .complex-layout .z-north {
+            background: #008BB6;
+        }
+        .complex-layout,
+        .complex-layout .z-south,
+        .complex-layout .z-west {
+            background: #F7F7F7;
+        }
+        img.complex-layout-header-img {
+            padding: 0 10px;
+        }
+        .complex-layout-header-label {
+            position: relative;
+            top: -30px;
+            padding-left: 40px;
+            font-size: 14px;
+            color: White;
+            font-weight: bold;
+        }
+        .inner-border,
+        .inner-border .z-north,
+        .inner-border .z-west,
+        .inner-border .z-south,
+        .inner-border .z-east {
+            background: #FFFFFF;
+        }
+        .dl-link {
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .calendar {
+        	background: url(/ZkExperiments/imgs/calendar.jpg) no-repeat;
+        }
+        
+        .person {
+        	background: url(/ZkExperiments/imgs/people.jpg) no-repeat;
+        }
+        
+        .trip {
+        	background: url(/ZkExperiments/imgs/bus.jpg) no-repeat;
+        }
+        
+        .statistics {
+        	background: url(/ZkExperiments/imgs/chart.jpg) no-repeat;
+        }
+ 
+    </style>
+    <style src="css/main.css"/>
+    <borderlayout sclass="complex-layout" height="810px" apply="org.trainingfrequence.section.Index">
+        <north size="90px" border="0">
+            <div>
+                <image sclass="complex-layout-header-img" src="/imgs/logo.gif" />
+                <label sclass="complex-layout-header-label" value="Application for the trainer" />
+            </div>
+        </north>
+        <!-- Sidebar -->
+        <west width="300px" border="0" flex="true" margins="0,5,0,0" >
+            <panel width="100%" border="normal" title="Navigation">
+                <panelchildren style="padding:5px;">
+                    <style>.z-menubar-hor, .z-menubar-ver { border: 1px solid #D8D8D8; }</style>
+				    <menubar id="menubar" width="100%" orient="vertical">
+				        <menu label="Person" image="/imgs/people.jpg">
+				            <menupopup>
+				                <menuitem label="Insert" id="insPerson" />
+				                <menuitem label="Modify" onClick="alert(self.label)" />
+				            </menupopup>
+				        </menu>
+				        <menuitem label="Calendar" image="/imgs/calendar.jpg" onClick="alert(self.label)" />
+				    	<menuitem label="Trip" image="/imgs/bus.jpg" onClick="alert(self.label)" />
+				    	<menuitem label="Calendar" image="/imgs/chart.jpg" onClick="alert(self.label)" />
+				    </menubar>
+                </panelchildren>
+            </panel>
+        
+        </west>
+        <!-- Content -->
+        <center>
+            <borderlayout sclass="inner-border">
+                <center border="0" margins="0,3,3,3">
+                    
+                    <include id="inner" src="hello.zul"/>
+                        
+                </center>
+            </borderlayout>
+        </center>
+        <south size="40px" border="0" style="background: none repeat scroll 0 0 ;">
+            <toolbar mold="panel" align="center">
+                <toolbarbutton label="Sign in" />
+                <toolbarbutton label="Home" />
+                <toolbarbutton label="Sitemap" />
+                <toolbarbutton label="Terms" />
+                <toolbarbutton label="Report Abuse" />
+                <toolbarbutton label="Print" />
+                <separator orient="vertical" bar="true" />
+                Powered by ZK ${desktop.webApp.version} ZK Borderlayout
+            </toolbar>
+        </south>
+    </borderlayout>
+</zk>

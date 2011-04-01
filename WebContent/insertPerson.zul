@@ -1,6 +1,6 @@
 <?page title="Insert Person" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="win1" title="Insert Person" border="normal" width="650px" style="background-color: red"
+	<window id="win1" title="Insert Person" border="normal"
 			apply="org.trainingfrequence.section.person.InsertPerson">
 		<grid fixedLayout="true">
 			<columns>

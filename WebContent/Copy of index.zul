@@ -1,0 +1,19 @@
+	
+	<hbox>
+            <window id="person" apply="org.trainingfrequence.section.Index" 
+            border="normal" popup="true" context="editPopup">
+            	<image src="imgs/people.jpg" ></image>
+            </window>
+            <menupopup id="editPopup">
+       	 		<menuitem image="/widgets/menu/context_menu/img/Bubble-16x16.png" label="Message" />
+            </menupopup>
+            <window border="normal" onClick="">
+            	<image src="imgs/calendar.jpg" ></image>
+            </window>
+            <window border="normal">
+            	<image src="imgs/bus.jpg" ></image>
+            </window>
+            <window border="normal">
+            	<image src="imgs/chart.jpg" ></image>
+            </window>
+     </hbox>
