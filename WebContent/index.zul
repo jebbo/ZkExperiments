@@ -1,3 +1,4 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk>
     <style>
         .z-borderlayout {
@@ -33,39 +34,24 @@
             text-decoration: none;
             cursor: pointer;
         }
-        
-        .calendar {
-        	background: url(/ZkExperiments/imgs/calendar.jpg) no-repeat;
-        }
-        
-        .person {
-        	background: url(/ZkExperiments/imgs/people.jpg) no-repeat;
-        }
-        
-        .trip {
-        	background: url(/ZkExperiments/imgs/bus.jpg) no-repeat;
-        }
-        
-        .statistics {
-        	background: url(/ZkExperiments/imgs/chart.jpg) no-repeat;
-        }
  
     </style>
     <style src="css/main.css"/>
-    <borderlayout sclass="complex-layout" height="810px" apply="org.trainingfrequence.section.Index">
+    <borderlayout sclass="complex-layout" height="100%" width="100%" apply="org.trainingfrequence.section.Index">
         <north size="90px" border="0">
             <div>
                 <image sclass="complex-layout-header-img" src="/imgs/logo.gif" />
-                <label sclass="complex-layout-header-label" value="Application for the trainer" />
+                <label sclass="complex-layout-header-label" id="titleHead" />
             </div>
         </north>
         <!-- Sidebar -->
-        <west width="300px" border="0" flex="true" margins="0,5,0,0" >
-            <panel width="100%" border="normal" title="Navigation">
+        <west width="250px" border="0" flex="true" margins="5,5,5,5" >
+        	<vlayout spacing="0">
+            <panel width="100%" border="normal" id= "navigation">
                 <panelchildren style="padding:5px;">
                     <style>.z-menubar-hor, .z-menubar-ver { border: 1px solid #D8D8D8; }</style>
 				    <menubar id="menubar" width="100%" orient="vertical">
-				        <menu label="Person" image="/imgs/people.jpg">
+				        <menu label="Person" image="/imgs/people.jpg" onClick="alert(self.label)">
 				            <menupopup>
 				                <menuitem label="Insert" id="insPerson" />
 				                <menuitem label="Modify" onClick="alert(self.label)" />
@@ -73,14 +59,17 @@
 				        </menu>
 				        <menuitem label="Calendar" image="/imgs/calendar.jpg" onClick="alert(self.label)" />
 				    	<menuitem label="Trip" image="/imgs/bus.jpg" onClick="alert(self.label)" />
-				    	<menuitem label="Calendar" image="/imgs/chart.jpg" onClick="alert(self.label)" />
+				    	<menuitem label="Statistics" image="/imgs/chart.jpg" onClick="alert(self.label)" />
 				    </menubar>
                 </panelchildren>
             </panel>
-        
+            <window width="100%" border="normal" id="language">	
+            	<include id="lang" src="lang.zul"/>
+			</window>
+            </vlayout>
         </west>
         <!-- Content -->
-        <center>
+        <center flex="true" border="0" margins="5,0,0,0" autoscroll="true">
             <borderlayout sclass="inner-border">
                 <center border="0" margins="0,3,3,3">
                     

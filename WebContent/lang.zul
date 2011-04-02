@@ -1,0 +1,26 @@
+<?page title="Languages" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<groupbox closable="false" sclass="z-demo-config">
+	    <caption>Locale (Refresh Page)</caption>
+	    <radiogroup id="rg">
+	        <attribute name="onCheck"><![CDATA[
+	            String localeValue = self.getSelectedItem().getValue();
+	            Locale prefer_locale = localeValue.length() > 2 ?
+	                    new Locale(localeValue.substring(0,2),localeValue.substring(3)) : new Locale(localeValue);
+	            session.setAttribute(org.zkoss.web.Attributes.PREFERRED_LOCALE, prefer_locale);
+	            session.setAttribute("Demo_Locale", self.getSelectedIndex());
+	            execution.sendRedirect("");
+	        ]]></attribute>
+	        <vlayout>
+	            <radio label="English" value="en"
+	                checked="${c:getCurrentLocale() == self.value || c:getCurrentLocale() == 'en_US' || c:getCurrentLocale() == 'en_GB' }" />
+	            <radio label="Italiano" value="it"
+	                checked="${c:getCurrentLocale() == self.value || c:getCurrentLocale() == 'it_IT' }" />
+	        </vlayout>
+	    </radiogroup>
+	    <zscript><![CDATA[
+	        if (session.getAttribute("Demo_Locale") != null)
+	            rg.setSelectedIndex(Integer.parseInt(session.getAttribute("Demo_Locale").toString()));
+	    ]]></zscript>
+	</groupbox>
+</zk>

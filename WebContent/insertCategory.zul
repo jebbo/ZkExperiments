@@ -1,6 +1,6 @@
 <?page title="Insert Category" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window id="win" title="Insert Category" width="460px" xmlns:c="client"
+<window id="win" title="Insert Category" width="600px" xmlns:c="client"
 	closable="true"  action="show: slideDown;hide: slideUp"
 	border="normal" apply="org.trainingfrequence.section.person.InsertCategory">
 	<attribute c:name="onClose"><![CDATA[

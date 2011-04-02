@@ -1,7 +1,8 @@
 <?page title="Insert Person" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window id="win1" title="Insert Person" border="normal"
-			apply="org.trainingfrequence.section.person.InsertPerson">
+			apply="org.trainingfrequence.section.person.InsertPerson"
+			height="100%" contentStyle="overflow:auto">
 		<grid fixedLayout="true">
 			<columns>
 				<column label="Type" width="150px" />

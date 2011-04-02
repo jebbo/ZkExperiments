@@ -117,7 +117,7 @@ public class Util {
 		}
 	}
 	
-	//TODO Questo metodo verrà sostituito dalle classe di Luca
+	//TODO Questo metodo verrï¿½ sostituito dalle classe di Luca
 	public static ArrayList<Listitem> getItemLisbox () 
 			throws InstantiationException, IllegalAccessException,
 				ClassNotFoundException, SQLException{
@@ -128,7 +128,7 @@ public class Util {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		Connection conn = DriverManager
 				.getConnection("jdbc:mysql://localhost/test?" +
-                                   "user=root&password=19god85-");
+                                   "user=root&password=");
 		
 		Statement stmt = conn.createStatement();
 		ResultSet rs  = stmt.executeQuery("SELECT * FROM category ORDER BY name");

@@ -1,6 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-WELCOMW
-</window>
+<panel width="100%" border="normal" title="Welcome" height="100%">
+	<panelchildren style="padding:5px;">
+		Welcome in Training Frequence.
+	</panelchildren>
+</panel>
 </zk>
