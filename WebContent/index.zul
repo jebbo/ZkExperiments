@@ -45,7 +45,7 @@
             </div>
         </north>
         <!-- Sidebar -->
-        <west width="250px" border="0" flex="true" margins="5,5,5,5" >
+        <west width="250px" border="0" flex="true" margins="5,3,3,3" >
         	<vlayout spacing="0">
             <panel width="100%" border="normal" id= "navigation">
                 <panelchildren style="padding:5px;">
@@ -78,6 +78,7 @@
                 </center>
             </borderlayout>
         </center>
+        <!-- Footer -->
         <south size="40px" border="0" style="background: none repeat scroll 0 0 ;">
             <toolbar mold="panel" align="center">
                 <toolbarbutton label="Sign in" />
@@ -87,7 +88,7 @@
                 <toolbarbutton label="Report Abuse" />
                 <toolbarbutton label="Print" />
                 <separator orient="vertical" bar="true" />
-                Powered by ZK ${desktop.webApp.version} ZK Borderlayout
+                Training Frequence
             </toolbar>
         </south>
     </borderlayout>
