@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
@@ -39,6 +41,8 @@ import java.sql.Statement;
  *  @author Maurizio Mazzotta
  */
 public class Util {
+	
+	private static Logger oUILogger;
 	
 	/**
 	 * This method make a sort ascendent in the Listbox passed
@@ -94,15 +98,24 @@ public class Util {
 	public static void renderizeListbox (Listbox listbLeft, Listbox listbRigth) 
 			throws InstantiationException, IllegalAccessException, 
 				ClassNotFoundException, SQLException {
+		
+		if(oUILogger == null) {
+			oUILogger = Logger.getLogger("org.trainingfrequencef.section");
+			BasicConfigurator.configure();
+		}
+
+		oUILogger.debug("start renderize Listbox");
 		Listitem itemListbox = null;
 		List listItem;
 		Iterator i;
 		ArrayList<Listitem> listItems = new ArrayList<Listitem>(); 
 		
 		listItems = getItemLisbox();
+		oUILogger.debug("categories prelevated from db.");
 		for(Listitem l: listItems) {
 			listbLeft.getItems().add(l);	
 		}
+		oUILogger.debug("created a Listitem for every cotegory and added in the Listbox");
 		
 		//Cycle on the Listitem and add the EventListener to allow the moving in the next Listbox
 		listItem = listbLeft.getItems();
@@ -115,9 +128,12 @@ public class Util {
 			//		new MoveListItemListener(listbLeft,listbRigth,
 			//				itemListbox,"l")); 
 		}
+		oUILogger.debug("added EventListener for every Listitem. (Event allow moove from next Listbox).");
+		oUILogger.info("Listbox populated correctly.");
+		
 	}
 	
-	//TODO Questo metodo verr� sostituito dalle classe di Luca
+	//TODO Questo metodo verra' sostituito dalle classe di Luca
 	public static ArrayList<Listitem> getItemLisbox () 
 			throws InstantiationException, IllegalAccessException,
 				ClassNotFoundException, SQLException{
